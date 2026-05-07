@@ -1,10 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using IoT_SmartHome.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1. Get the connection string from appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// 2. Register the DbContext to use SQLite
+builder.Services.AddDbContext<HomeDbContext>(options => 
+    options.UseSqlite(connectionString));
 
 var app = builder.Build();
 
