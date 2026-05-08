@@ -9,7 +9,19 @@
 *.user
 *.userosscache
 *.sln.docstates
+
+# SQLite helper files
 *.db
+*.db-shm
+*.db-wal
+
+# Build folders
+bin/
+obj/
+
+# Node/Angular folders
+node_modules/
+dist/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -98,8 +110,6 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-*.db-wal
-*.db-shm
 
 # Chutzpah Test files
 _Chutzpah*
