@@ -19,6 +19,15 @@ builder.Services.AddEndpointsApiExplorer();
 // 4. Generate that nice testing webpage.
 builder.Services.AddSwaggerGen();
 
+// Add CORS Policy to allow Angular app to access the API
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAngular",
+		policy => policy.WithOrigins("https://localhost:7016", "http://localhost:5279")
+		.AllowAnyMethod()
+		.AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Seed the database
@@ -55,6 +64,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();	// This generates the JSON 
     app.UseSwaggerUI(); // This creates the interactive website at /swagger
 }
+
+app.UseCors("AllowAngular");
 
 // app.UseHttpsRedirection(); // automatically pushes to the secure https://
 app.UseAuthorization();		// for logins or keys, this line checks if the user has permission to see the data
