@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using IoT_SmartHome.Api.Data;
 using IoT_SmartHome.Api.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,12 @@ builder.Services.AddDbContext<HomeDbContext>(options =>
     options.UseSqlite(connectionString));
 
 // 3. Tell .NET to look for classes that inherit from ControllerBase
-builder.Services.AddControllers();
+//    and to use camelcase for JSON responses (instead of the default PascalCase).
+builder.Services.AddControllers()
+	.AddJsonOptions(options => {
+		options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+	});
+
 builder.Services.AddEndpointsApiExplorer();
 
 // 4. Generate that nice testing webpage.
