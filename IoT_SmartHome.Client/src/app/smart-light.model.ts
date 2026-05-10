@@ -4,5 +4,5 @@ export interface SmartLight {
   isOn: boolean;
   brightness: number;
   maxWattage: number;
-  currentPowerUsage number; // calculated value to be sent from the backend
+  currentPowerUsage: number; // calculated value to be sent from the backend
 }
