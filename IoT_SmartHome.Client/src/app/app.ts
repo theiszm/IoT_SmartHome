@@ -13,23 +13,28 @@ export class AppComponent implements OnInit {
   protected readonly title = signal('IoT_SmartHome.Client');
 
   public lights: SmartLight[] = [];
+  public isLoading: boolean = true;
 
   // inject HttpClient into constructor
   constructor(private http: HttpClient) {}
   
   ngOnInit() {
-	this.getLights();
+	  this.getLights();
   }
 
   // fetches data from the .NET API
   // "subscribe" is equivalent to Task and await in C#
   getLights() {
+    console.log("Fetching lights...");
+    this.isLoading = true;
 	  this.http.get<SmartLight[]>('https://localhost:7016/api/smartlights').subscribe({
 		  next: (result) => {
-			  this.lights = result;
+        this.lights = result;
+        this.isLoading = false; // turn off when data arrives
 		  },
-		  error: (error) => {
-			  console.error('API Error:', error);
+      error: (err) => {
+        this.isLoading = false;
+			  console.error('API Error:', err);
 		  }
 	  });
   }

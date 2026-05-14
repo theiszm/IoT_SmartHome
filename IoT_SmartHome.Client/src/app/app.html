@@ -1,12 +1,12 @@
 <nav>
-	<h1> My SmartHome Dashboard </h1>
+	<h1> Theiss' SmartHome Dashboard </h1>
 </nav>
 
 <!--default starter view-->
 <!--<router-outlet />-->
 
 <div class="container">
-	<h1>{{ title }}</h1>
+	<h1>{{ title() }}</h1>
 	<hr />
 
 	<!--for every light in the list, create a new DIV element-->
@@ -23,7 +23,11 @@
 		<hr />
 	</div>
 
-	<div *ngIf="lights.length === 0">
+	<div *ngIf="isLoading">
+		<p>Connecting to your Smart Home...</p>
+	</div>
+
+	<div *ngIf="!isLoading && lights.length === 0">
 		<p>No lights found. Is the API running?</p>
 	</div>
 
