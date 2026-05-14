@@ -28,10 +28,11 @@ builder.Services.AddSwaggerGen();
 // Add CORS Policy to allow Angular app to access the API
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAngular",
-		policy => policy.WithOrigins("https://localhost:7016", "http://localhost:5279")
-		.AllowAnyMethod()
-		.AllowAnyHeader());
+    // permit cross-origin requests from the Angular client
+    options.AddPolicy("AllowAll",
+		policy => policy.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader());
 });
 
 var app = builder.Build();
@@ -71,9 +72,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); // This creates the interactive website at /swagger
 }
 
-app.UseCors("AllowAngular");
+app.UseRouting();		// This looks at the URL and decides which controller method to run
+
+app.UseCors("AllowAll");
 
 // app.UseHttpsRedirection(); // automatically pushes to the secure https://
 app.UseAuthorization();		// for logins or keys, this line checks if the user has permission to see the data
-app.MapControllers();	// Maps the routes to the Controller methods
+app.MapControllers();		// Maps the routes to the Controller methods
 app.Run();
