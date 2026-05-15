@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SmartLight } from './smart-light.model';
+import { SmartLight, SmartThermostat, SmartSecurityCamera, SmartSpeaker } from './smart-device.model';
 
 @Component({
   selector: 'app-root',
