@@ -8,8 +8,11 @@ namespace IoT_SmartHome.Api.Data
         public HomeDbContext(DbContextOptions<HomeDbContext> options)
             : base(options) { }
 
-        // Creates a SmartLights table in the database
+        // Creates the model tables in the database
         public DbSet<SmartLight> SmartLights { get; set; }
-    
+        public DbSet<SmartSecurityCamera> SmartSecurityCameras { get; set; }
+        public DbSet<SmartSpeaker> SmartSpeakers { get; set; }
+        public DbSet<SmartThermostat> SmartThermostats { get; set; }
+
     }
 }
