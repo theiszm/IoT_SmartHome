@@ -19,25 +19,23 @@ namespace IoT_SmartHome.Api.Controllers
 
         // GET api/smartlights
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SmartLight>>> GetLights()
+        public async Task<ActionResult<IEnumerable<SmartLight>>> Get()
         {
             return await _context.SmartLights.ToListAsync();
         }
 
         // POST api/smartlights
         [HttpPost]
-        public async Task<ActionResult<SmartLight>> PostLight([FromBody] SmartLight light)
+        public async Task<ActionResult<SmartLight>> Post([FromBody] SmartLight device)
         {
+            device.LastUpdated = DateTime.UtcNow;
+
             // Add light to the memory HomeDbContext
-            _context.SmartLights.Add(light);
+            _context.SmartLights.Add(device);
 
             // Save changes to the actual SQLite file
             await _context.SaveChangesAsync();
-
-            // Return the object back to the user to confirm it was created,
-            // along with a 201 Created status code.
-            return CreatedAtAction(nameof(GetLights), new { id = light.Id }, light);
-
+            return Ok(device);
         }
 
     }
