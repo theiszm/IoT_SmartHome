@@ -22,7 +22,7 @@ namespace IoT_SmartHome.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SmartSecurityCamera device)
+        public async Task<ActionResult<SmartSecurityCamera>> Post([FromBody] SmartSecurityCamera device)
         {
             device.LastUpdated = DateTime.UtcNow;
             _context.SmartSecurityCameras.Add(device);

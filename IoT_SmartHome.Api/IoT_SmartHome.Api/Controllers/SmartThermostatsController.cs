@@ -22,7 +22,7 @@ namespace IoT_SmartHome.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SmartThermostat device)
+        public async Task<ActionResult<SmartThermostat>> Post([FromBody] SmartThermostat device)
         {
             device.LastUpdated = DateTime.UtcNow;
             _context.SmartThermostats.Add(device);

@@ -22,7 +22,7 @@ namespace IoT_SmartHome.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SmartSpeaker device)
+        public async Task<ActionResult<SmartSpeaker>> Post([FromBody] SmartSpeaker device)
         {
             device.LastUpdated = DateTime.UtcNow;
             _context.SmartSpeakers.Add(device);
