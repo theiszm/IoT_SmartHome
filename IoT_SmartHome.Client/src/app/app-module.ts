@@ -5,17 +5,9 @@ import { AppRoutingModule } from './app-routing-module';
 import { AppComponent } from './app';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [provideBrowserGlobalErrorListeners()],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
