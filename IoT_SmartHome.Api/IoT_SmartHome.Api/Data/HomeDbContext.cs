@@ -13,6 +13,7 @@ namespace IoT_SmartHome.Api.Data
         public DbSet<SmartSecurityCamera> SmartSecurityCameras { get; set; }
         public DbSet<SmartSpeaker> SmartSpeakers { get; set; }
         public DbSet<SmartThermostat> SmartThermostats { get; set; }
+        public DbSet<SmartLock> SmartLocks { get; set; }
 
     }
 }

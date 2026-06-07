@@ -37,4 +37,10 @@ export interface SmartSpeaker extends SmartDevice {
   isMuted: boolean;
 }
 
+export interface SmartLock extends SmartDevice {
+  isLocked: boolean;
+  batteryPercentage: number;
+  lastUnlockedTime: string;
+}
+
 
