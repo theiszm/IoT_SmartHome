@@ -52,6 +52,8 @@ var app = builder.Build();
 // ----------------------------------------------------------------------------
 // HTTP REQUEST PIPELINE / MIDDLEWARE (ALL SWAGGER UI IN ONE PLACE)
 // ----------------------------------------------------------------------------
+
+// 1. Check if in development to show Swagger tools
 if (app.Environment.IsDevelopment())
 {
 	// app.MapOpenApi();	// This is the .NET 10 default
@@ -59,13 +61,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// 2. Force a secure connection
 app.UseHttpsRedirection();
+// 3.Check for static web assets (images, CSS, files)
 app.UseStaticFiles();
+// 4. Analyze the URL to figure out the path destination
 app.UseRouting();
+// 5. Validate cross-origin web browser permissions
 app.UseCors();
+// 6. Verify identity tokens and access security rights
 app.UseAuthorization();
 
-// Tells .NET to scan the Controllers folder and route URLs to them.
+// 7. Tell .NET to scan the Controllers folder and route URLs to them
 app.MapControllers();
 
 // ----------------------------------------------------------------------------
