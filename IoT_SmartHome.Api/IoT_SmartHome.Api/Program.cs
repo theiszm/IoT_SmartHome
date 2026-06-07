@@ -36,6 +36,7 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
 // ----------------------------------------------------------------------------
@@ -87,7 +88,7 @@ using (var scope = app.Services.CreateScope())
 		// create the Db file if it doesn't exist
 		context.Database.EnsureCreated();
         // applies any pending migrations to the target database at runtime
-        //context.Database.Migrate(); 
+        // context.Database.Migrate(); 
 
         // Seed initial database data if empty
         if (!context.SmartLights.Any())
@@ -120,6 +121,14 @@ using (var scope = app.Services.CreateScope())
             context.SmartSecurityCameras.AddRange(
                 new SmartSecurityCamera { Room = "Front Porch", IsRecording = true, StorageUsagePercentage = 42, MotionDetected = true, IsOnline = true, LastUpdated = DateTime.UtcNow },
                 new SmartSecurityCamera { Room = "Backyard", IsRecording = true, StorageUsagePercentage = 88, MotionDetected = false, IsOnline = true, LastUpdated = DateTime.UtcNow }
+            );
+        }
+
+        if (!context.SmartLocks.Any())
+        {
+            context.SmartLocks.AddRange(
+                new SmartLock { Room = "Front Door", IsLocked = true, BatteryPercentage = 92, IsOnline = true, LastUpdated = DateTime.UtcNow },
+                new SmartLock { Room = "Back Door", IsLocked = false, BatteryPercentage = 85, IsOnline = true, LastUpdated = DateTime.UtcNow }
             );
         }
 
