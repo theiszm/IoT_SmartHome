@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IoT_SmartHome.Api.Migrations
 {
     [DbContext(typeof(HomeDbContext))]
-    [Migration("20260607041410_AddSmartLockTable")]
-    partial class AddSmartLockTable
+    [Migration("20260607095738_InitialCreateFromScratch")]
+    partial class InitialCreateFromScratch
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

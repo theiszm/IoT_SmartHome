@@ -5,12 +5,7 @@ export interface SmartDevice {
 	lastUpdated: string; // ISO Date String from .NET
 }
 
-export enum SystemMode {
-  Off = 'Off',
-  Heat = 'Heat',
-  Cool = 'Cool',
-  Eco = 'Eco'
-}
+export type SystemMode = 'Off' | 'Heating' | 'Cooling' | 'Eco';
 
 export interface SmartLight extends SmartDevice {
   isOn: boolean;
@@ -40,7 +35,7 @@ export interface SmartSpeaker extends SmartDevice {
 export interface SmartLock extends SmartDevice {
   isLocked: boolean;
   batteryPercentage: number;
-  lastUnlockedTime: string;
+  lastUnlockedTime: string | null;
 }
 
 
