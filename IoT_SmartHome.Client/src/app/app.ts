@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 import { SmartLight, SmartThermostat, SmartSecurityCamera, SmartSpeaker, SmartLock } from './smart-device.model';
 
 @Component({
@@ -8,7 +9,6 @@ import { SmartLight, SmartThermostat, SmartSecurityCamera, SmartSpeaker, SmartLo
   standalone: false,
   styleUrl: './app.css'
 })
-
 export class AppComponent implements OnInit {
   protected readonly title = signal('IoT_SmartHome.Client');
 
@@ -22,65 +22,38 @@ export class AppComponent implements OnInit {
   private readonly baseUrl = 'https://localhost:7016/api';
 
   // inject HttpClient into constructor
-  constructor(private http: HttpClient) {}
-  
+  constructor(private http: HttpClient) { }
+
   ngOnInit() {
-	  this.fetchAllDevices();
+    this.fetchDashboardData();
   }
 
   // fetches data from the .NET API
   // "subscribe" is equivalent to Task and await in C#
-  fetchAllDevices() {
+  fetchDashboardData() {
     this.isLoading = true;
-    console.log("Fetching all smart home devices...");
 
-    this.getLights();
-    this.getThermostats();
-    this.getCameras();
-    this.getSpeakers();
-    this.getLocks();
-  }
-
-  getLights() {
-    this.http.get<SmartLight[]>('{this.baseUrl}/smartlights').subscribe({
-      next: (result) => {
-        this.lights = result; this.checkLoadingStatus();
+    // Fire all API requests in parallel using RxJS forkJoin
+    forkJoin({
+      lights: this.http.get<SmartLight[]>(`${this.baseUrl}/smartlights`),
+      thermostats: this.http.get<SmartThermostat[]>(`${this.baseUrl}/smartthermostats`),
+      cameras: this.http.get<SmartSecurityCamera[]>(`${this.baseUrl}/smartsecuritycameras`),
+      speakers: this.http.get<SmartSpeaker[]>(`${this.baseUrl}/smartspeakers`),
+      locks: this.http.get<SmartLock[]>(`${this.baseUrl}/smartlocks`)
+    }).subscribe({
+      next: (response) => {
+        this.lights = response.lights;
+        this.thermostats = response.thermostats;
+        this.cameras = response.cameras;
+        this.speakers = response.speakers;
+        this.locks = response.locks;
       },
-      error: (err) => { console.error('Lights API Error:', err); this.checkLoadingStatus() }
+      error: (err) => {
+        console.error('Failed to load dashboard devices:', err);
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
-
-  getThermostats() {
-    this.http.get<SmartThermostat[]>(`${this.baseUrl}/smartthermostats`).subscribe({
-      next: (result) => { this.thermostats = result; this.checkLoadingStatus(); },
-      error: (err) => { console.error('Thermostats API Error:', err); this.checkLoadingStatus(); }
-    });
-  }
-
-  getCameras() {
-    this.http.get<SmartSecurityCamera[]>(`${this.baseUrl}/smartsecuritycameras`).subscribe({
-      next: (result) => { this.cameras = result; this.checkLoadingStatus(); },
-      error: (err) => { console.error('Cameras API Error:', err); this.checkLoadingStatus(); }
-    });
-  }
-
-  getSpeakers() {
-    this.http.get<SmartSpeaker[]>(`${this.baseUrl}/smartspeakers`).subscribe({
-      next: (result) => { this.speakers = result; this.checkLoadingStatus(); },
-      error: (err) => { console.error('Speakers API Error:', err); this.checkLoadingStatus(); }
-    });
-  }
-
-  getLocks() {
-    this.http.get<SmartLock[]>(`${this.baseUrl}/smartlocks`).subscribe({
-      next: (result) => { this.locks = result; this.checkLoadingStatus(); },
-      error: (err) => { console.error('Locks API Error:', err); this.checkLoadingStatus(); }
-    });
-  }
-
-  // turn off spinner once loading finishes or fails
-  private checkLoadingStatus() {
-    this.isLoading = false;
-  }
-	  
 }
