@@ -18,12 +18,17 @@ Responsive Dashboard: A dynamic UI using Angular structural directives (*ngFor) 
 
 - Language: C# and TypeScript
 
+### Dashboard
+![](IoT_SmartHome.Client/public/static/images/smarthome_dashboard.PNG)
+
 ### Architecture & Device Handling
 This application uses a Full-Stack Architecture to manage and display smart device data:
 
 The Virtual Model: The SmartDevice.cs base class defines universal traits shared by all devices, such as unique IDs, online status, and timestamps.
 
 The Control Panel: The Angular client acts as the central hub, fetching data asynchronously via HttpClient.
+
+
 
 
 
