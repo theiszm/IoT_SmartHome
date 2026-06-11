@@ -127,8 +127,8 @@ using (var scope = app.Services.CreateScope())
         if (!context.SmartLocks.Any())
         {
             context.SmartLocks.AddRange(
-                new SmartLock { Room = "Front Door", IsLocked = true, BatteryPercentage = 92, IsOnline = true, LastUpdated = DateTime.UtcNow },
-                new SmartLock { Room = "Back Door", IsLocked = false, BatteryPercentage = 85, IsOnline = true, LastUpdated = DateTime.UtcNow }
+                new SmartLock { Room = "Front Porch", IsLocked = true, BatteryPercentage = 92, IsOnline = true, LastUpdated = DateTime.UtcNow },
+                new SmartLock { Room = "Garage", IsLocked = false, BatteryPercentage = 85, IsOnline = true, LastUpdated = DateTime.UtcNow }
             );
         }
 
