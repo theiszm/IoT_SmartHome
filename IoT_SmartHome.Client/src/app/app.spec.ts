@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app';
 
-describe('App', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -24,6 +24,6 @@ describe('App', () => {
     const fixture = TestBed.createComponent(AppComponent);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, IoT_SmartHome.Client');
+    expect(compiled.querySelector('.text-primary')?.textContent).toContain('IoT SmartHome');
   });
 });
