@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend-api:
+    build:
+      context: ./IoT_SmartHome.Api/IoT_SmartHome.Api
+      dockerfile: Dockerfile
+    ports:
+      - "7016:7016"
+      - "5241:5241"
+    volumes:
+      # Volume mounting links local files so edits reflect live inside Docker!
+      - ./IoT_SmartHome.Api:/app
+      - /app/obj/
+      - /app/bin/
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  frontend-client:
+    build:
+      context: ./IoT_SmartHome.Client
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./IoT_SmartHome.Client:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend-api
