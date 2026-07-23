@@ -4,8 +4,7 @@ services:
       context: ./IoT_SmartHome.Api
       dockerfile: Dockerfile
     ports:
-      - "7016:7016"
-      - "5241:5241"
+      - "5279:8080"
     volumes:
       - ./IoT_SmartHome.Api:/app
       - /app/obj/
