@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   public locks: SmartLock[] = [];
 
   public isLoading: boolean = true;
-  private readonly baseUrl = 'https://localhost:7016/api';
+  private readonly baseUrl = 'http://localhost:5279/api';
 
   // Injected ChangeDetectorRef (cdr) into constructor
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }

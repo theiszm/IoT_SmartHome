@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine
 WORKDIR /app
 
 EXPOSE 7016
@@ -7,10 +7,9 @@ EXPOSE 5241
 ENV ASPNETCORE_URLS=https://+:7016;http://+:5241
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-COPY *.csproj ./
-RUN dotnet restore
+COPY IoT_SmartHome.Api.csproj ./
+RUN dotnet restore "IoT_SmartHome.Api.csproj" --disable-parallel
 
 COPY . .
 
-# 'dotnet watch' keeps listening for live edits in your C# files
 ENTRYPOINT ["dotnet", "watch", "run", "--no-launch-profile"]

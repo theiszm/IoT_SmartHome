@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="IoT_SmartHome.Api/IoT_SmartHome.Api/IoT_SmartHome.Api.csproj" />
+  <Project Path="IoT_SmartHome.Api/IoT_SmartHome.Api.csproj" />
   <Project Path="IoT_SmartHome.Client/IoT_SmartHome.Client.esproj">
     <Build />
     <Deploy />
