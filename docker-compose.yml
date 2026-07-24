@@ -4,13 +4,14 @@ services:
       context: ./IoT_SmartHome.Api
       dockerfile: Dockerfile
     ports:
-      - "5279:8080"
+      - "5279:5279"
     volumes:
       - ./IoT_SmartHome.Api:/app
       - /app/obj/
       - /app/bin/
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5279
 
   frontend-client:
     build:

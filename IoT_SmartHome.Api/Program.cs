@@ -63,7 +63,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // 2. Force a secure connection
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 // 3.Check for static web assets (images, CSS, files)
 app.UseStaticFiles();
 // 4. Analyze the URL to figure out the path destination

@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine
 WORKDIR /app
 
-EXPOSE 7016
-EXPOSE 5241
+EXPOSE 5279
 
-ENV ASPNETCORE_URLS=https://+:7016;http://+:5241
+ENV ASPNETCORE_URLS=http://+:5279
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 COPY IoT_SmartHome.Api.csproj ./
