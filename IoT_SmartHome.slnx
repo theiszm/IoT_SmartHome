@@ -4,4 +4,5 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="IoT_SmartHome.Tests/IoT_SmartHome.Tests.csproj" />
 </Solution>
